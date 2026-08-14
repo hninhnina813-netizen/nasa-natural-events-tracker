@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h1>{{ event.title }}</h1>
+
+    <p><strong>Category:</strong> {{ event.category }}</p>
+    <p><strong>Status:</strong> {{ event.status }}</p>
+    <p><strong>Date and Time:</strong> {{ event.event_date }}</p>
+    <p><strong>Coordinates:</strong> {{ event.longitude }}, {{ event.latitude }}</p>
+    <p><strong>Source URL:</strong> <a href="{{ event.source_url }}" target="_blank">View Event</a></p>
+    {% if event.magnitude %}
+    <p><strong>Magnitude:</strong> {{ event.magnitude }} {{ event.mag_unit }}</p>
+{% endif %}
+
+{% endblock %}
+

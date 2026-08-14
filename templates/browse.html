@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Browse Events</h1>
+
+<form method="get" action="/browse">
+    <label>Days: <input type="number" name="days" value="{{ selected_days }}"></label>
+
+    <label>
+    Status:
+    <select name="status">
+        <option value="open" {% if selected_status == "open" %}selected{% endif %}>Open</option>
+        <option value="closed" {% if selected_status == "closed" %}selected{% endif %}>Closed</option>
+        <option value="all" {% if selected_status == "all" %}selected{% endif %}>All</option>
+    </select>
+</label>
+
+    <label>
+        Category:
+        <select name="category">
+            <option value="" {% if not selected_category %}selected{% endif %}>All</option>
+            <option value="wildfires" {% if selected_category == "wildfires" %}selected{% endif %}>Wildfires</option>
+            <option value="drought" {% if selected_category == "drought" %}selected{% endif %}>Drought</option>
+            <option value="dustHaze" {% if selected_category == "dustHaze" %}selected{% endif %}>Dust and Haze</option>
+            <option value="earthquakes" {% if selected_category == "earthquakes" %}selected{% endif %}>Earthquakes</option>
+            <option value="floods" {% if selected_category == "floods" %}selected{% endif %}>Floods</option>
+            <option value="landslides" {% if selected_category == "landslides" %}selected{% endif %}>Landslides</option>
+            <option value="manmade" {% if selected_category == "manmade" %}selected{% endif %}>Manmade</option>
+            <option value="seaLakeIce" {% if selected_category == "seaLakeIce" %}selected{% endif %}>Sea and Lake Ice</option>
+            <option value="severeStorms" {% if selected_category == "severeStorms" %}selected{% endif %}>Severe Storms</option>
+            <option value="snow" {% if selected_category == "snow" %}selected{% endif %}>Snow</option>
+            <option value="volcanoes" {% if selected_category == "volcanoes" %}selected{% endif %}>Volcanoes</option>
+        </select>
+    </label>
+
+<button type="submit">Filter</button>
+</form>
+
+
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Date and Time</th>
+        <th>Coordinates</th>
+    </tr>
+    
+    {% for event in events %}
+        <tr>
+            <td><a href="{{ url_for('event_detail', eonet_id=event.eonet_id) }}">{{ event.title }}</a></td>
+            <td>{{ event.category }}</td>
+            <td>{{ event.status }}</td>
+            <td>{{ event.event_date }}</td>
+            <td>{{ event.longitude }}, {{ event.latitude }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
